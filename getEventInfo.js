@@ -50,7 +50,7 @@ function getEvent(keyword, radius, startDate, endDate) {
         })
 }
 
-//getEvent(kw, rad, start, end);
+getEvent(kw, rad, start, end);
 
 //This function is just being used to see how geoPoint works
 function geoPointTest() {
