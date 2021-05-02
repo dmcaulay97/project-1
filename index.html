@@ -11,7 +11,23 @@
 <body>
     <h1>ipStack Test</h1>
     <h1 id="btn">start</h1>
+
     <script src="getEventInfo.js"></script>
+    <script type="module">
+        import Geohash from 'https://cdn.jsdelivr.net/npm/latlon-geohash@2.0.0';
+        function returnLocation() {
+            var location;
+            getLocation().then(function (data) {
+                location = data;
+                console.log(data);
+                var geohash = Geohash.encode(data[0], data[1], 6);
+                console.log(geohash);
+            })
+        }
+
+        returnLocation();
+    </script>
+
 </body>
 
 </html>
