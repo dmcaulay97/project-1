@@ -50,16 +50,16 @@ function getLocation() {
 
 
 //These variables are being used to test the getEvent function
-var kw = "Devils"
+var kw = ""
 var rad = 100
-var start = "2021-05-01T12:53:00Z"
+var start = "2021-05-03T12:53:00Z"
 var end = "2021-05-08T12:53:00Z"
 var seg = ""
 var gen = ""
 
 //This function takes in a set of search perameters and outpusts a list of events from the ticketmaster api. 
 function getEvent(keyword, radius, startDate, endDate) {
-    fetch("https://app.ticketmaster.com/discovery/v2/events?apikey=GzFkQCar3fBiQNMZCAG5AGjj9xujtAiu&keyword=" + keyword + "&radius=" + radius + "&locale=*&startDateTime=" + startDate + "&endDateTime=" + endDate + "&sort=date,asc&segmentId=KZFzniwnSyZfZ7v7nE&genreId=KnvZfZ7vAdI&subGenreId=KZazBEonSMnZfZ7vFEE&geoPoint=dr57s1")
+    fetch("https://app.ticketmaster.com/discovery/v2/events?apikey=GzFkQCar3fBiQNMZCAG5AGjj9xujtAiu&keyword=" + keyword + "&radius=" + radius + "&locale=*&startDateTime=" + startDate + "&endDateTime=" + endDate + "&sort=date,asc&segmentId=KZFzniwnSyZfZ7v7nE&genreId=KnvZfZ7vAdI&subGenreId=")
         .then(function (response) {
             if (response.ok) {
                 response.json()
@@ -69,6 +69,8 @@ function getEvent(keyword, radius, startDate, endDate) {
             }
         })
 }
+
+getEvent(kw, rad, start, end);
 
 //getEvent(kw, rad, start, end);
 
@@ -90,7 +92,7 @@ function geoPointTest() {
 //This function gets the information for the object 'eventType' from the ticketmaster api. see line 4
 function getCatagories() {
     var catagories = {
-        segments: []
+
     }
     var root = "https://app.ticketmaster.com";
     var page = "/discovery/v2/classifications.json?apikey=GzFkQCar3fBiQNMZCAG5AGjj9xujtAiu";
@@ -102,13 +104,13 @@ function getCatagories() {
                     for (var i = 11; i < 17; i++) {
                         var segmentId = data._embedded.classifications[i].segment.id;
                         var segmentName = data._embedded.classifications[i].segment.name;
-                        var obj = { name: segmentName, id: segmentId, genres: [] };
+                        var obj = { id: segmentId, genres: [{}] };
                         var genreLength = data._embedded.classifications[i].segment._embedded.genres.length;
                         for (var x = 0; x < genreLength; x++) {
                             var genreName = data._embedded.classifications[i].segment._embedded.genres[x].name
                             var genreid = data._embedded.classifications[i].segment._embedded.genres[x].id
-                            var obj2 = { name: genreName, id: genreid };
-                            obj.genres.push(obj2);
+                            var obj2 = { id: genreid };
+                            obj.genres[0][genreName] = obj2;
                             subGenreLength = data._embedded.classifications[i].segment._embedded.genres[x]._embedded.subgenres.length;
                             // for (var z = 0; z < subGenreLength; z++) {
                             //     var subGenreName = data._embedded.classifications[i].segment._embedded.genres[x]._embedded.subgenres[z].name;
@@ -117,7 +119,7 @@ function getCatagories() {
                             //     obj2.subGenre.push(obj3);
                             // }
                         }
-                        catagories.segments.push(obj);
+                        catagories[segmentName] = obj;
                     }
                     console.log(catagories);
                     console.log(JSON.stringify(catagories));
@@ -125,4 +127,6 @@ function getCatagories() {
         })
 
 }
+
+
 
