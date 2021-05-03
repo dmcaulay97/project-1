@@ -34,7 +34,7 @@ function extractParameters() {
 
 
 back.on("click", function () {
-    document.location.replace("../search.html");
+    document.location.replace("../index.html");
 })
 
 extractParameters();

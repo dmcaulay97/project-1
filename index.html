@@ -5,29 +5,90 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ipStack</title>
+    <title>Search Results</title>
 </head>
 
 <body>
-    <h1>ipStack Test</h1>
-    <h1 id="btn">start</h1>
+    <ul id="parameters">
+        <li>
+            <label for="city">City</label>
+            <input type="text" id="city">
+        </li>
+        <li>
+            <label for="keyword">Keyword</label>
+            <input type="text" id="keyword">
+        </li>
 
-    <script src="getEventInfo.js"></script>
-    <!-- <script type="module">
+        <li>
+            <label for="radius">Radius</label>
+            <input type="number" id="radius" value="100">
+        </li>
+        <li>
+            <label for="startDate">Strat Date</label>
+            <input type="date" id="startDate">
+        </li>
+        <li>
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate">
+        </li>
+        <li>
+            <label for="category">Category</label>
+            <select name="categories" id="category">
+                <option value=" ">Select</option>
+                <option value="Sports">Sports</option>
+                <option value="Music">Music</option>
+                <option value="Arts & Theatre">Arts & Theatre</option>
+                <option value="Film">Film</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+            </select>
+        </li>
+        <li>
+            <label for="subCategory">Sub-Category</label>
+            <select name="Sub-Categories" id="subCategory">
+                <option value=" ">Select</option>
+
+            </select>
+        </li>
+    </ul>
+    <button id="submit">Submit</button>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="search.js"></script>
+    <script type="module">
         import Geohash from 'https://cdn.jsdelivr.net/npm/latlon-geohash@2.0.0';
-        function returnLocation() {
-            var location;
-            getLocation().then(function (data) {
-                location = data;
-                console.log(data);
-                var geohash = Geohash.encode(data[0], data[1], 6);
-                console.log(geohash);
-            })
+        function search() {
+            if ($("#city").val() === "") {
+                var city = $("#city").attr("value");
+            } else {
+                var city = $("#city").val()
+            }
+            if ($("#keyword").val().length == 0) {
+                var keyword = " ";
+            } else {
+                var keyword = $("#keyword").val()
+            }
+            var radius = $("#radius").val()
+            var startDate = $("#startDate").val() + "T00:00:00Z"
+            var endDate = $("#endDate").val() + "T23:59:00Z"
+            var category = $("#category").val()
+            var subCategory = $("#subCategory").val()
+            if (subCategory !== " ") {
+                subCategory = eventType[category].genres[0][subCategory].id;
+            }
+            if (category !== " ") {
+                category = eventType[category].id;
+            }
+            console.log(keyword);
+            cityCoords(city)
+                .then(function (data) {
+                    var geohash = Geohash.encode(data[0], data[1], 6);
+                    var qstring = "?city=" + city + "&keyword=" + keyword + "&radius=" + radius + "&start=" + startDate + "&end=" + endDate + "&category=" + category + "&sub=" + subCategory + "&geohash=" + geohash;
+                    document.location.replace("results/results.html" + qstring)
+                })
         }
-
-        returnLocation();
-    </script> -->
-
+        submit.on("click", search);
+    </script>
 </body>
 
 </html>
