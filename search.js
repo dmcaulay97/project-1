@@ -6,6 +6,8 @@ var categoryEl = $("#category")
 var subCategoryEl = $("#subCategory");
 var cityEl = $("#city");
 var submit = $("#submit");
+var myLocation = $("#myLocation");
+var saved = $("#saved");
 
 
 function setDefaults() {
@@ -39,9 +41,15 @@ function cityCoords(city) {
             if (response.ok) {
                 return response.json()
                     .then(function (data) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
-                        return [lat, lon];
+                        if (data.length == 0) {
+                            alert("Please enter a valid city name!");
+                            return "break";
+                        } else {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            return [lat, lon];
+                        }
+
                     })
             }
         })
@@ -68,8 +76,15 @@ categoryEl.on("change", function (event) {
 })
 
 
+myLocation.on("click", function (event) {
+    event.preventDefault();
+    getLocation();
+})
 
-getLocation();
+saved.on("click", function () {
+    document.location.replace("saved/saved.html");
+})
+
 setDefaults();
 
 

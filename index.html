@@ -9,10 +9,13 @@
 </head>
 
 <body>
+    <h1>Search</h1>
+    <h2 id="saved">See Saved Events</h2>
     <ul id="parameters">
         <li>
             <label for="city">City</label>
             <input type="text" id="city">
+            <button id="myLocation">Use My Location</button>
         </li>
         <li>
             <label for="keyword">Keyword</label>
@@ -58,21 +61,27 @@
     <script type="module">
         import Geohash from 'https://cdn.jsdelivr.net/npm/latlon-geohash@2.0.0';
         function search() {
-            if ($("#city").val() === "") {
-                var city = $("#city").attr("value");
+            if ($("#city").val() == "") {
+                alert("Please enter a city name!");
+                return
             } else {
-                var city = $("#city").val()
+                var city = $("#city").val();
             }
+
             if ($("#keyword").val().length == 0) {
                 var keyword = " ";
             } else {
                 var keyword = $("#keyword").val()
             }
-            var radius = $("#radius").val()
-            var startDate = $("#startDate").val() + "T00:00:00Z"
-            var endDate = $("#endDate").val() + "T23:59:00Z"
-            var category = $("#category").val()
-            var subCategory = $("#subCategory").val()
+            if ($("#radius").val() == "") {
+                var radius = 100;
+            } else {
+                var radius = $("#radius").val()
+            }
+            var startDate = $("#startDate").val() + "T00:00:00Z";
+            var endDate = $("#endDate").val() + "T23:59:00Z";
+            var category = $("#category").val();
+            var subCategory = $("#subCategory").val();
             if (subCategory !== " ") {
                 subCategory = eventType[category].genres[0][subCategory].id;
             }
@@ -82,9 +91,14 @@
             console.log(keyword);
             cityCoords(city)
                 .then(function (data) {
-                    var geohash = Geohash.encode(data[0], data[1], 6);
-                    var qstring = "?city=" + city + "&keyword=" + keyword + "&radius=" + radius + "&start=" + startDate + "&end=" + endDate + "&category=" + category + "&sub=" + subCategory + "&geohash=" + geohash;
-                    document.location.replace("results/results.html" + qstring)
+                    if (data == "break") {
+                        return;
+                    } else {
+                        var geohash = Geohash.encode(data[0], data[1], 6);
+                        var qstring = "?city=" + city + "&keyword=" + keyword + "&radius=" + radius + "&start=" + startDate + "&end=" + endDate + "&category=" + category + "&sub=" + subCategory + "&geohash=" + geohash;
+                        document.location.replace("results/results.html" + qstring);
+                    }
+
                 })
         }
         submit.on("click", search);
