@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <title>Search</title>
 </head>
 
 <body>
     <h1>Search</h1>
     <h2 id="saved">See Saved Events</h2>
+    <!-- This ul is the form that the user uses to input searc parameters -->
     <ul id="parameters">
         <li>
             <label for="city">City</label>
             <input type="text" id="city">
+            <!-- The use my location buttin will use the users ip address to fill in a city name on the search form -->
             <button id="myLocation">Use My Location</button>
         </li>
         <li>
@@ -58,9 +60,13 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="search.js"></script>
+    <!-- javascript is included here because I can't fugure out how to use the import in another way -->
     <script type="module">
+        // This import gives us a function that convers from latitude and longitude to geohash, which is the location identifier that the ticketmaser api uses.
         import Geohash from 'https://cdn.jsdelivr.net/npm/latlon-geohash@2.0.0';
+        //The search function triggers when the user hits the submit button.
         function search() {
+            //We start by extracting the search parameters and assigning them variables. Most variable assignent accounts for a blank entry. Only the city name is required for the search to exticute.
             if ($("#city").val() == "") {
                 alert("Please enter a city name!");
                 return
@@ -88,19 +94,24 @@
             if (category !== " ") {
                 category = eventType[category].id;
             }
-            console.log(keyword);
+            //The cityCoords function is called an returnes the lat and lon of the city entered.
             cityCoords(city)
                 .then(function (data) {
+                    //The function will return if the openweathermap api is unable to find a city with the searched city name.
                     if (data == "break") {
                         return;
                     } else {
+                        //using the imported library the lat and lon ar converted to a geohash.
                         var geohash = Geohash.encode(data[0], data[1], 6);
+                        //qstring is created to carry over the search parameters to the results page. These will be used in the call to the ticketmaster api.
                         var qstring = "?city=" + city + "&keyword=" + keyword + "&radius=" + radius + "&start=" + startDate + "&end=" + endDate + "&category=" + category + "&sub=" + subCategory + "&geohash=" + geohash;
+                        //the page location is switched to the results page.
                         document.location.replace("results/results.html" + qstring);
                     }
 
                 })
         }
+        //This event listener triggers the search function to happen when the button is clicked
         submit.on("click", search);
     </script>
 </body>
