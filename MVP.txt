@@ -1,0 +1,11 @@
+MVP
+
+-Allow user to search events based on location and event type
+
+-When the user searches, they are shown a list of the most relevent results from the ticketmaster api.
+
+-Each result displays the event: Name, location date/time, description, weather icon.
+
+-Each result has a button that allows you to save event
+
+-User can got to save event page and view their saved events (local storage)
