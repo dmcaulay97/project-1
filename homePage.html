@@ -20,23 +20,72 @@
       <div class="background blue lighten-4"></div>
       <a href="#logo"><img class="circle" src="letter f.jpg"></a>
     </div></li>
-    <li><a class="waves-effect searchBtn" href="#!">Search</a></li>
+    <li><a class="waves-effect modal-trigger" id="searchBtn" href="#modal1">Search</a></li>
     <li><a class="waves-effect" href="#!">Suggested Events</a></li>
     <li><a class="waves-effect" href="#!">About</a></li>
   </ul>
+  <a class="waves-effect waves-light" href="#modal1"></a>
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Search Events!</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="event-type" type="text" class="validate">
+              <label for="event_type">Event Type</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="location" type="text" class="validate">
+              <label for="">Location</label>
+            </div>
+            <form action="#">
+              <label>Distance (miles)</label>
+              <p class="range-field">
+                <input type="range" id="test5" min="0" max="100" />
+              </p>
+            </form>
+          </div>
+          <div class="row">
+            <span class="material-icons">event</span>
+            <input type="text" class="datepicker">
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select>
+                <option value="" disabled selected>Category Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+              <label>Materialize Select</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select>
+                <option value="" disabled selected>Sub-Category Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+              <label>Materialize Select</label>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Search</a>
     </div>
   </div>
 
   
   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
