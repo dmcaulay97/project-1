@@ -59,7 +59,7 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="search.js"></script>
+    <script src="javascript/search.js"></script>
     <!-- javascript is included here because I can't fugure out how to use the import in another way -->
     <script type="module">
         // This import gives us a function that convers from latitude and longitude to geohash, which is the location identifier that the ticketmaser api uses.
@@ -106,7 +106,7 @@
                         //qstring is created to carry over the search parameters to the results page. These will be used in the call to the ticketmaster api.
                         var qstring = "?city=" + city + "&keyword=" + keyword + "&radius=" + radius + "&start=" + startDate + "&end=" + endDate + "&category=" + category + "&sub=" + subCategory + "&geohash=" + geohash;
                         //the page location is switched to the results page.
-                        document.location.replace("results/results.html" + qstring);
+                        document.location.replace("html/results.html" + qstring);
                     }
 
                 })

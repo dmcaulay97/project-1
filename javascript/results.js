@@ -26,7 +26,7 @@ function getEvent(keyword, radius, startDate, endDate, segId, genreId, geohash) 
 
                             //All html elements needed to display the results are created and fgiven the proper attributes.
                             var row = $("<div></div>").attr("class", "row")
-                            var collumn = $("<div></div>").attr("class", "col s12 m6")
+                            var collumn = $("<div></div>").attr("class", "col s12")
                             var card = $("<div></div>").attr("class", "card blue-grey darken-1")
                             var cardContent = $("<div></div>").attr("class", "card-content white-text")
                             var nameEl = $("<span>" + name + "</span>").attr("class", "card-title")
