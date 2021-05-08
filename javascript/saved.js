@@ -111,7 +111,8 @@ $("#getWeather").on("click", function () {
     var oneWeek = moment(date, "X").add(7, "days").format("X");
     var currentDate = moment().format("MM-DD-YYYY");
     currentDate = moment(currentDate, "MM-DD-YYYY").format("X");
-
+    console.log(currentDate, date, oneWeek);
+    console.log((date < currentDate), (date > oneWeek));
     if (date < currentDate || date > oneWeek) {
         $("#weatherTitle").text("Weather can only be displayd for days within one week of today");
         $("#modal3").attr("class", "modal show");
