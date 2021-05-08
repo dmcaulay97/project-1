@@ -108,7 +108,9 @@ $("#getWeather").on("click", function () {
     var date = $(".carousel-item.active").children().children().children().children().children()[2].textContent;
     date = date.substring(6, 16);
     date = moment(date, "MM-DD-YYYY").format('X');
-    var oneWeek = moment(date, "X").add(7, "days").format("X");
+    var oneWeek = moment(date, "X")
+    oneWeek = parseInt(oneWeek) + 604800;
+    oneWeek = oneWeek.toString();
     var currentDate = moment().format("MM-DD-YYYY");
     currentDate = moment(currentDate, "MM-DD-YYYY").format("X");
     console.log(currentDate, date, oneWeek);
