@@ -88,7 +88,7 @@ function getWeather(city, index, date) {
                                             var icon = "http://openweathermap.org/img/wn/" + data.daily[index].weather[0].icon + "@2x.png";
                                             $("#weatherImg").attr("src", icon);
                                             $("#weatherTemp").text("Temp: " + temp + "F");
-                                            $("#weatherHumid").text("Temp: " + humid + "%");
+                                            $("#weatherHumid").text("Humidity: " + humid + "%");
                                             $("#weatherTitle").text("Weather for : " + moment(date, "X").format("MMM Do, YYYY"));
                                             $("#modal3").attr("class", "modal show");
 
@@ -109,11 +109,8 @@ $("#getWeather").on("click", function () {
     date = date.substring(6, 16);
     date = moment(date, "MM-DD-YYYY").format('X');
     var oneWeek = moment(date, "X").add(7, "days").format("X");
-    console.log(date);
-    console.log(oneWeek);
     var currentDate = moment().format("MM-DD-YYYY");
     currentDate = moment(currentDate, "MM-DD-YYYY").format("X");
-    console.log(currentDate);
 
     if (date < currentDate || date > oneWeek) {
         $("#weatherTitle").text("Weather can only be displayd for days within one week of today");

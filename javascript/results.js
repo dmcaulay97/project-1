@@ -3,9 +3,10 @@ var back = $("#back");
 var results = $("#results");
 var next = $("#next");
 var prev = $("#prev");
+var city = "";
 
 //The getEvent function takes in a set of search perameters and outputs a list of events from the ticketmaster api. It also genertes the html elements that display these events.
-function getEvent(keyword, radius, startDate, endDate, segId, genreId, geohash, city) {
+function getEvent(keyword, radius, startDate, endDate, segId, genreId, geohash) {
     //The ticketmaser api is used to get event information.
     fetch("https://app.ticketmaster.com/discovery/v2/events?apikey=GzFkQCar3fBiQNMZCAG5AGjj9xujtAiu&keyword=" + keyword + "&radius=" + radius + "&locale=*&startDateTime=" + startDate + "&endDateTime=" + endDate + "&sort=date,asc&segmentId=" + segId + "&genreId=" + genreId + "&geoPoint=" + geohash)
         .then(function (response) {
@@ -170,7 +171,8 @@ function extractParameters() {
         }
     }
     //The paramsArray contains all query parameter keywords and its values are passed to the get event function whick will query the api given the input query parameters from the user.
-    getEvent(paramsArray[1], paramsArray[2], paramsArray[3], paramsArray[4], paramsArray[5], paramsArray[6], paramsArray[7], paramsArray[0])
+    city = paramsArray[0];
+    getEvent(paramsArray[1], paramsArray[2], paramsArray[3], paramsArray[4], paramsArray[5], paramsArray[6], paramsArray[7])
 }
 
 //This event listener allows the user to go back to te search page.
