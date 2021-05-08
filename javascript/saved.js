@@ -10,9 +10,11 @@ function getSaved() {
     for (var i = 0; i < savedArray.length; i++) {
         //Allrequired values are extracted form the localStorage Array.
         var eventArray = savedArray[i];
-        var name = eventArray[0];
-        if (name.length > 35) {
-            name = name.substring(0, 32) + "...";
+        var fullName = eventArray[0];
+        if (fullName.length > 35) {
+            var name = fullName.substring(0, 32) + "...";
+        } else {
+            var name = fullName;
         }
         var date = eventArray[1];
         var time = eventArray[2];
@@ -35,13 +37,15 @@ function getSaved() {
         urlEl.children().attr("class", "waves-effect waves light btn inline")
         var removeli = $("<li></li>")
         var remove = $("<a>Remove</a>").attr("class", "waves-effect waves light btn inline")
+        var fullName = $("<p>" + fullName + "</p>");
+        fullName.css("display", "none");
         //Each event is given a remove button, so it can be removed from the saved page and local storage.
         remove.on("click", function (event) {
             btn = $(event.target);
             event.preventDefault();
             event.stopPropagation();
-            //We search the savedArray for the event that he user is trying to remove and remove it form the array
-            var eventName = btn.parent().children()[0].textContent;
+            //We search the savedArray for the event that the user is trying to remove and remove it form the array
+            var eventName = btn.parent().children()[8].textContent;
             var savedArray = JSON.parse(localStorage.getItem("saved"));
             for (var x = 0; x < savedArray.length; x++) {
                 var event = savedArray[x];
@@ -58,7 +62,7 @@ function getSaved() {
         //All html elements are appended to the document
         removeli.append(remove);
         var hr = $("<hr>");
-        cardContent.append(nameEl, distanceEl, dateEl, timeEl, hr, urlEl, remove, weatherCity);
+        cardContent.append(nameEl, distanceEl, dateEl, timeEl, hr, urlEl, remove, weatherCity, fullName);
         card.append(cardContent);
         collumn.append(card);
         row.append(collumn);
@@ -91,10 +95,6 @@ function getWeather(city, index, date) {
                                             $("#weatherHumid").text("Humidity: " + humid + "%");
                                             $("#weatherTitle").text("Weather for : " + moment(date, "X").format("MMM Do, YYYY"));
                                             $("#modal3").attr("class", "modal show");
-
-
-
-
                                         })
                                 }
                             })
