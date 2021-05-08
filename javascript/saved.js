@@ -108,16 +108,25 @@ $("#getWeather").on("click", function () {
     var date = $(".carousel-item.active").children().children().children().children().children()[2].textContent;
     date = date.substring(6, 16);
     date = moment(date, "MM-DD-YYYY").format('X');
-    var oneWeek = moment(date, "X")
-    oneWeek = parseInt(oneWeek) + 604800;
-    oneWeek = oneWeek.toString();
+    date = parseInt(date);
     var currentDate = moment().format("MM-DD-YYYY");
     currentDate = moment(currentDate, "MM-DD-YYYY").format("X");
+    currentDate = parseInt(currentDate);
+    var oneWeek = moment(currentDate, "X").format("X");
+    console.log(oneWeek)
+    oneWeek = parseInt(oneWeek) + 604800;
+    console.log(oneWeek);
+    oneWeek = oneWeek
+    console.log(oneWeek);
+
     console.log(currentDate, date, oneWeek);
     console.log((date < currentDate), (date > oneWeek));
     if (date < currentDate || date > oneWeek) {
         $("#weatherTitle").text("Weather can only be displayd for days within one week of today");
         $("#modal3").attr("class", "modal show");
+        $("#weatherImg").attr("src", "");
+        $("#weatherTemp").text("");
+        $("#weatherHumid").text("");
     } else {
         dayIndex = (date - currentDate) / 86400;
         console.log(dayIndex);
